@@ -5,17 +5,30 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo K8s terraform!
+- script: echo "Running K8s Terraform!"
   displayName: 'Run a one-line script'
+
 - task: DownloadSecureFile@1
   name: publickey
   inputs:
     secureFile: 'devops-ssh.pub'
+
 - task: TerraformCLI@2
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '- var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    commandOptions: |
+      -backend-config="storage_account_name=strgaccstarkprince005" \
+      -backend-config="container_name=storageacctstarkprince" \
+      -backend-config="key=kubernetes-dev.tfstate" \
+      -backend-config="resource_group_name=terraform-backend-rg" \
+      -backend-config="subscription_id=8426ac3d-d736-43c2-93d7-ef84cfb9de3a" \
+      -backend-config="tenant_id=bad12864-913e-4b99-87d6-b8d2ad459e27" \
+      -backend-config="client_id=$(client_id)" \
+      -backend-config="client_secret=$(client_secret)" \
+      -var="client_id=$(client_id)" \
+      -var="client_secret=$(client_secret)" \
+      -var="ssh_public_key=$(Pipeline.Workspace)/$(publickey.secureFilePath)"
     backendType: 'azurerm'
     backendServiceArm: 'Azure for Students(8426ac3d-d736-43c2-93d7-ef84cfb9de3a)'
     backendAzureRmTenantId: 'bad12864-913e-4b99-87d6-b8d2ad459e27'
