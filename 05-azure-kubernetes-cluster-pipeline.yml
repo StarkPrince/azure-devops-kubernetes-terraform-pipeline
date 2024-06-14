@@ -28,7 +28,7 @@ steps:
       -backend-config="client_secret=$(client_secret)" \
       -var="client_id=656490ba-0ed2-404f-91b0-b51acf74ea9f" \
       -var="client_secret=$(client_secret)" \
-      -var="ssh_public_key=$(Pipeline.Workspace)/_temp/devops-ssh.pub"
+      -var="ssh_public_key=$(Pipeline.Workspace)/$(publickey.secureFilePath)"
     backendType: 'azurerm'
     backendServiceArm: 'Azure for Students(8426ac3d-d736-43c2-93d7-ef84cfb9de3a)'
     backendAzureRmTenantId: 'bad12864-913e-4b99-87d6-b8d2ad459e27'
