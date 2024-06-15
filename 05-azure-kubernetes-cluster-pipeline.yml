@@ -17,26 +17,17 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: |
-      -backend-config="storage_account_name=strgaccstarkprince005"
-      -backend-config="container_name=storageacctstarkprince"
-      -backend-config="key=kubernetes-dev.tfstate"
-      -backend-config="resource_group_name=terraform-backend-rg"
-      -backend-config="subscription_id=8426ac3d-d736-43c2-93d7-ef84cfb9de3a"
-      -backend-config="tenant_id=bad12864-913e-4b99-87d6-b8d2ad459e27"
-      -backend-config="client_id=656490ba-0ed2-404f-91b0-b51acf74ea9f"
-      -backend-config="client_secret=$(client_secret)"
-      -var="client_id=656490ba-0ed2-404f-91b0-b51acf74ea9f"
-      -var="client_secret=$(client_secret)"
-      -var="ssh_public_key=$(Pipeline.Workspace)/$(publickey.secureFilePath)"
     backendType: 'azurerm'
     backendServiceArm: 'Azure for Students(8426ac3d-d736-43c2-93d7-ef84cfb9de3a)'
     backendAzureRmTenantId: 'bad12864-913e-4b99-87d6-b8d2ad459e27'
     backendAzureRmSubscriptionId: '8426ac3d-d736-43c2-93d7-ef84cfb9de3a'
-    ensureBackend: true
     backendAzureRmResourceGroupName: 'terraform-backend-rg'
     backendAzureRmResourceGroupLocation: 'westeurope'
     backendAzureRmStorageAccountName: 'strgaccstarkprince005'
     backendAzureRmContainerName: 'storageacctstarkprince'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
+    commandOptions: |
+      -var="client_id=656490ba-0ed2-404f-91b0-b51acf74ea9f"
+      -var="client_secret=$(client_secret)"
+      -var="ssh_public_key=$(Pipeline.Workspace)/$(publickey.secureFilePath)"
